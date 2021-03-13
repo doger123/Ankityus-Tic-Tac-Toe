@@ -13,6 +13,7 @@ let Tile = function(x, y) {
   this.size = 100;
   this.status = "";
   this.hover = false;
+  this.scale = 0;
 }
 
 Tile.prototype.draw = function() {
@@ -21,6 +22,8 @@ Tile.prototype.draw = function() {
   } else {
     fill(244);
   }
+
+  translate(this.scale, this.scale);
   rect(this.x, this.y, this.size, this.size);
   textSize(99);
   fill(0, 0, 0);
@@ -57,12 +60,49 @@ function draw() {
     element.draw();
   });
 
+  //Winner
+  
+  //Top
+  if (tiles[0].status === "X" && tiles[3].status === "X" && tiles[6].status === "X") {
+    piece = 9;
+  }
+  //Left
+  else if (tiles[0].status === "X" && tiles[1].status === "X" && tiles[2].status === "X") {
+    piece = 9;
+  }
+  //Right
+  else if (tiles[6].status === "X" && tiles[7].status === "X" && tiles[8].status === "X") {
+    piece = 9;
+  }
+  //Bottom
+  else if (tiles[2].status === "X" && tiles[5].status === "X" && tiles[8].status === "X") {
+    piece = 9;
+  }
+  //Middle side
+  else if (tiles[1].status === "X" && tiles[4].status === "X" && tiles[6].status === "X") {
+    piece = 9;
+  }
+  //Middle top
+  else if (tiles[3].status === "X" && tiles[4].status === "X" && tiles[5].status === "X") {
+    piece = 9;
+  }
+
+  //Diagonal Left
+  else if (tiles[0].status === "X" && tiles[4].status === "X" && tiles[8].status === "X") {
+    piece = 9;
+  }
+  
+   //Diagonal Right
+   else if (tiles[6].status === "X" && tiles[4].status === "X" && tiles[2].status === "X") {
+    piece = 9;
+  }
+
   //Drop
   tiles.forEach(element => {
     if (piece >= 9) {
       for (let index = 0; index < tiles.length; index++) {
         tiles[index].y+=0.5;
-        textSize(24);
+        tiles[index].scale-=0.05;
       }
     }
   });
